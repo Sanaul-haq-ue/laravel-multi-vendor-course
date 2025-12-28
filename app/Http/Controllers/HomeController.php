@@ -42,7 +42,8 @@ class HomeController extends Controller
     public function courses()
     {
         return view('front.courses',[
-            'courses' => CourseModule::where('status', 0)->get(),
+            'courses' => CourseModule::where('approved_status', 1)
+                ->where('status', 0)->get(),
         ]);
     }
 

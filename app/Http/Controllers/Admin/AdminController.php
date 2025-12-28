@@ -34,7 +34,6 @@ class AdminController extends Controller
             ->get();
 
         $approves = CheckOut::where('teacher_created_by_id', Auth::id())
-            ->where('status', 0)
             ->get();
 
         return view('back.teacher.teacherDashboard',compact('course','approves'));

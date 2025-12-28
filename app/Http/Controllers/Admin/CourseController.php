@@ -96,7 +96,7 @@ class CourseController extends Controller
 
     public function module(Request $request){
 
-        $modules = CourseModule::with(['subject', 'course']);
+        $modules = CourseModule::where('created_by',Auth::id())->with(['subject', 'course']);
 
         // Apply filters if they exist
         if ($request->subject_id) {
@@ -160,6 +160,11 @@ class CourseController extends Controller
     }
 
 
+
+    // Student Course Purchesh Section
+    // ========================
+
+
     public function approve(){
 
         $approves = CheckOut::where('teacher_created_by_id', Auth::id())
@@ -167,7 +172,7 @@ class CourseController extends Controller
             ->get();
 
 
-        return view('back.details.approve',compact('approves'));
+        return view('back.details.studentApprove',compact('approves'));
     }
 
     public function approvedSubmit(Request $request, $id){
@@ -177,6 +182,28 @@ class CourseController extends Controller
 
     public function rejectSubmit(Request $request, $id){
         CheckOut::updateReject($request, $id);
+        return back();
+    }
+
+
+    // Course Module Approved  Section
+    // ========================
+
+    public function courseApprove(){
+
+        $approves = CourseModule::where('approved_status', 0)->get();
+
+
+        return view('back.details.courseApproved',compact('approves'));
+    }
+
+    public function courseApprovedSubmit(Request $request, $id){
+        CourseModule::updateApprovedCourse($request, $id);
+        return back();
+    }
+
+    public function courseRejectSubmit(Request $request, $id){
+        CourseModule::updateRejectCourse($request, $id);
         return back();
     }
 

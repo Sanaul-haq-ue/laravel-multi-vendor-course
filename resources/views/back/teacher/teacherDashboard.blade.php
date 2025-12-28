@@ -32,7 +32,7 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <h3 class="mb-2 fw-semibold">0</h3>
+                                            <h3 class="mb-2 fw-semibold">{{ $approves->where('status', 1)->count()}}</h3>
                                             <p class="text-muted fs-13 mb-0">Total Student</p>
                                             
                                         </div>
@@ -50,8 +50,8 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <h3 class="mb-2 fw-semibold">{{count($course)}}</h3>
-                                            <p class="text-muted fs-13 mb-0">Total Courses</p>
+                                            <h3 class="mb-2 fw-semibold">{{ $approves->where('status', 0)->count()}}</h3>
+                                            <p class="text-muted fs-13 mb-0">Pending Student</p>
                                             
                                         </div>
                                         <div class="col col-auto top-icn dash">
@@ -68,8 +68,8 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <h3 class="mb-2 fw-semibold">{{ count($approves)}} </h3>
-                                            <p class="text-muted fs-13 mb-0">Need Approved</p>
+                                            <h3 class="mb-2 fw-semibold"> {{$course->where('approved_status',1)->count()}}</h3>
+                                            <p class="text-muted fs-13 mb-0">Total Live Courses</p>
                                             
                                         </div>
                                         <div class="col col-auto top-icn dash">
@@ -86,8 +86,8 @@
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col">
-                                            <h3 class="mb-2 fw-semibold">0</h3>
-                                            <p class="text-muted fs-13 mb-0">Upcomming</p>
+                                            <h3 class="mb-2 fw-semibold">{{$course->where('approved_status',0)->count()}}</h3>
+                                            <p class="text-muted fs-13 mb-0">Pending Courses</p>
                                             
                                         </div>
                                         <div class="col col-auto top-icn dash">

@@ -36,6 +36,11 @@ Route::post('/signUp',[AuthController::class,'registerSubmit'])->name('registerS
 Route::middleware(['admin'])->prefix('admin')->group(function()
 {
     Route::get('/dashboard',[AdminController::class,'index_admin'])->name('admin.dashboard');
+
+    Route::get('/courseApprove',[CourseController::class,'courseApprove'])->name('courseApprove');
+    Route::put('/courseApprovedSubmit/{id}',[CourseController::class,'courseApprovedSubmit'])->name('courseApprovedSubmit');
+    Route::put('/courseRejectSubmit/{id}',[CourseController::class,'courseRejectSubmit'])->name('courseRejectSubmit');
+
 });
 
 Route::middleware(['student'])->prefix('student')->group(function()
@@ -51,7 +56,19 @@ Route::middleware(['student'])->prefix('student')->group(function()
 Route::middleware(['teacher'])->prefix('teacher')->group(function()
 {
     Route::get('/dashboard',[AdminController::class,'index_teacher'])->name('teacher.dashboard');        
+    
+    Route::get('/module',[CourseController::class,'module'])->name('module');
 
+    Route::get('/approve',[CourseController::class,'approve'])->name('approve');
+    Route::put('/approvedSubmit/{id}',[CourseController::class,'approvedSubmit'])->name('approvedSubmit');
+    Route::put('/rejectSubmit/{id}',[CourseController::class,'rejectSubmit'])->name('rejectSubmit');
+
+});
+
+
+Route::middleware(['admin_or_teacher'])->group(function(){
+
+    
     Route::get('/subject',[CourseController::class,'subject'])->name('subjet');
     Route::get('/subjectFrom',[CourseController::class,'subjectFrom'])->name('subjectFrom');
     Route::post('/subjectSubmit',[CourseController::class,'subjectSubmit'])->name('subjectSubmit');
@@ -64,16 +81,10 @@ Route::middleware(['teacher'])->prefix('teacher')->group(function()
     Route::post('/courseEdit',[CourseController::class,'courseEdit'])->name('courseEdit');
     Route::put('/courseUpdate/{id}',[CourseController::class,'courseUpdate'])->name('courseUpdate');
 
-    Route::get('/module',[CourseController::class,'module'])->name('module');
+    
     Route::get('/moduleFrom',[CourseController::class,'moduleFrom'])->name('moduleFrom');
     Route::post('/moduleSubmit',[CourseController::class,'moduleSubmit'])->name('moduleSubmit');
     Route::post('/moduleEdit',[CourseController::class,'moduleEdit'])->name('moduleEdit');
     Route::put('/moduleUpdate/{id}',[CourseController::class,'moduleUpdate'])->name('moduleUpdate');
 
-    Route::get('/approve',[CourseController::class,'approve'])->name('approve');
-    Route::put('/approvedSubmit/{id}',[CourseController::class,'approvedSubmit'])->name('approvedSubmit');
-    Route::put('/rejectSubmit/{id}',[CourseController::class,'rejectSubmit'])->name('rejectSubmit');
-
-
-    
 });

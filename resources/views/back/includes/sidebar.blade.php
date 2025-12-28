@@ -84,7 +84,12 @@
                                 </a>
                                 <ul class="slide-menu">
                                     <li class="side-menu-label1"><a href="javascript:void(0)">Approved</a></li>
-                                    <li><a href="{{route('approve')}}" class="slide-item">Approved</a></li>
+                                    @if (Auth::check() && Auth::user()->role == 'teacher')
+                                    <li><a href="{{route('approve')}}" class="slide-item">Student Approved</a></li>
+                                    @endif
+                                    @if (Auth::check() && Auth::user()->role == 'admin')
+                                    <li><a href="{{route('courseApprove')}}" class="slide-item">Courses Approved</a></li>
+                                    @endif
                                 </ul>
                             </li>
                             @endif

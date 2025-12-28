@@ -48,20 +48,40 @@
 																<td data-field="id">{{ $loop->iteration }}</td>
 																<td data-field="name">{{ $subject->subject }}</td>
 																<td data-field="name">{{ $subject->status == 0 ? 'Active' : 'Inactive' }}</td>
-																@if (Auth::check() && Auth::user()->role === 'teacher')
-                                                                    <form action="{{route('subjectEdit')}}" method="POST">
-																		@csrf
-																		<td style="width: 100px">
-																			<input type="hidden" name="id" value="{{ $subject->id }}">
-																			{{-- <a class="btn btn-primary fs-14 text-white edit-icn" title="Edit">
-																				<i class="fe fe-edit"></i>
-																			</a> --}}
-																			<button class="btn btn-primary fs-14 text-white edit-icn">
-																				<i class="fe fe-edit"></i>
-																			</button>
+                                                                    
+																		<td style="width: 200px">
+
+																			<div class="row">
+																				<div class="col-md-6">
+																					<form action="{{route('subjectEdit')}}" method="POST">
+																					@csrf
+																						<input type="hidden" name="id" value="{{ $subject->id }}">
+																						{{-- <a class="btn btn-primary fs-14 text-white edit-icn" title="Edit">
+																							<i class="fe fe-edit"></i>
+																						</a> --}}
+																						<button class="btn btn-primary fs-14 text-white edit-icn">
+																							<i class="fe fe-edit"></i>
+																						</button>
+																					</form>
+																				</div>
+																				<div class="col-md-6">
+																					@if (Auth::check() && Auth::user()->role == 'admin')
+																						<form action="{{route('subjectEdit')}}" method="POST">
+																							@csrf
+																								<input type="hidden" name="id" value="{{ $subject->id }}">
+																								{{-- <a class="btn btn-primary fs-14 text-white edit-icn" title="Edit">
+																									<i class="fe fe-edit"></i>
+																								</a> --}}
+																								<button class="btn btn-danger fs-14 text-white edit-icn">
+																									Delete
+																								</button>
+																						</form>
+																					@endif
+																				</div>
+																			</div>
+
 																		</td>
-																	</form>
-                                                                @endif
+																
 															</tr>
 															@endforeach
 														</tbody>

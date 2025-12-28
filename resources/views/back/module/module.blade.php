@@ -93,6 +93,7 @@
                                                                 <th>Course Title</th>
                                                                 <th>Course Name</th>
 																<th>Status</th>
+																<th>Approved Status</th>
 																@if (Auth::check() && Auth::user()->role === 'teacher')
 																	<th>Action</th>
 																@endif
@@ -106,6 +107,7 @@
                                                                 <td data-field="name">{{ $module->course->course }}</td>
                                                                 <td data-field="name">{{ $module->course_name }}</td>
 																<td data-field="name">{{ $module->status == 0 ? 'Active' : 'Inactive' }}</td>
+																<td data-field="name">{{ $module->approved_status == 0 ? 'Pending' : ($module->approved_status == 1 ? 'Approved' : 'Reject' ) }}</td>
 																@if (Auth::check() && Auth::user()->role === 'teacher')
                                                                     <form action="{{route('courseEdit')}}" method="POST">
 																		@csrf

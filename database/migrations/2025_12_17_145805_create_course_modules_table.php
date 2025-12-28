@@ -26,6 +26,7 @@ return new class extends Migration
             $table->longText('description');
             $table->longText('image');
             $table->tinyInteger('status')->comment('0=Active', '1=Inactive');
+            $table->tinyInteger('approved_status')->comment('0=Pending', '1=Approved', '1=Unapproved');
 
             $table->integer('regular_price')->nullable();
             $table->integer('main_price');

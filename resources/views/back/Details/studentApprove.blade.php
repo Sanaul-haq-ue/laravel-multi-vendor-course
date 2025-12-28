@@ -52,7 +52,7 @@
                                                             <td class="text-muted fs-13">{{ $approve->payment == 0 ? 'Bkash' : 'Card' }}</td>
                                                             <td class="text-danger fs-14 fw-semibold">{{$approve->created_at}}</td>
                                                             <td class="text-muted fs-13">
-                                                                {{ $approve->payment == 0 ? 'Pending' : ($approve->payment == 1 ? 'Approved' : 'Unapproved') }}
+                                                                {{ $approve->status == 0 ? 'Pending' : ($approve->status == 1 ? 'Approved' : 'Unapproved') }}
                                                             </td>
                                                             <td>
                                                                 <div class="d-flex align-items-stretch">

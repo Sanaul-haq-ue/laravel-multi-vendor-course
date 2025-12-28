@@ -22,6 +22,7 @@ class CourseModule extends Model
         self::$module->description = $request->description;
         self::$module->image       = self::saveImage($request);
         self::$module->status      = $request->status;
+        self::$module->approved_status      = 0;
 
         self::$module->regular_price = $request->regular_price;
         self::$module->main_price = $request->main_price;
@@ -67,5 +68,20 @@ class CourseModule extends Model
     public function creator()
     {
         return $this->belongsTo(User::class, 'created_by');
+    }
+
+
+
+
+    public static function updateApprovedCourse($request, $id){
+        self::$module = CourseModule::find($id);
+        self::$module->approved_status = $request->approved_status;
+        self::$module->save();
+    }
+
+    public static function updateRejectCourse($request, $id){
+        self::$module = CourseModule::find($id);
+        self::$module->approved_status = $request->approved_status;
+        self::$module->save();
     }
 }

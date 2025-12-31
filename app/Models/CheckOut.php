@@ -9,7 +9,16 @@ use Illuminate\Support\Facades\Auth;
 class CheckOut extends Model
 {
     use HasFactory;
-
+    protected $fillable = [
+        'user_id',
+        'courseModule_id',
+        'price',
+        'payment',
+        'teacher_created_by_id',
+        'status',
+        'transaction_id',
+        'updated_at',
+        ];
     private static $checkout;
 
     public static function saveCheckOut($request, $id){

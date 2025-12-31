@@ -6,6 +6,9 @@ use App\Http\Controllers\Admin\AuthController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\admin\CourseController;
 use App\Http\Controllers\CheckOutController;
+use App\Http\Controllers\SslCommerzPaymentController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +49,8 @@ Route::middleware(['admin'])->prefix('admin')->group(function()
 Route::middleware(['student'])->prefix('student')->group(function()
 {
     Route::get('/dashboard',[AdminController::class,'index_student'])->name('student.dashboard');        
+
+   
 
     Route::get('/Check-Out/{id}',[CheckOutController::class,'index'])->name('checkOut');        
     Route::post('/checkoutSubmit/{id}',[CheckOutController::class,'checkoutSubmit'])->name('checkoutSubmit');        
@@ -88,3 +93,51 @@ Route::middleware(['admin_or_teacher'])->group(function(){
     Route::put('/moduleUpdate/{id}',[CourseController::class,'moduleUpdate'])->name('moduleUpdate');
 
 });
+
+
+
+
+// SSLCOMMERZ Start
+// Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+// Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+// Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+    Route::post('/success', [SslCommerzPaymentController::class, 'success'])
+        ->name('ssl.success')
+    ->withoutMiddleware([\App\Http\Middleware\VerifyCsrfToken::class]);
+
+
+//     Route::get('/success', function () {
+//     return view('back.details.successPage');
+// });
+
+
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+
+// Route::get('/successPage',[CheckOutController::class,'successPage'])->name('successPage');
+
+Route::get('/payment-complete/{tran_id}',[CheckOutController::class,'successPage']);
+
+//     Route::get('/payment-complete/{tran_id}', function ($tran_id) {
+
+//     $order = DB::table('check_outs')
+//         ->where('transaction_id', $tran_id)
+//         ->first();
+
+//     if (!$order) {
+//         abort(403);
+//     }
+
+//     // ✅ NOW login works (browser request)
+//     Auth::loginUsingId($order->user_id);
+
+//     return redirect()->route('student.dashboard')
+//         ->with('success', 'Payment completed successfully!');
+// });
+
+//SSLCOMMERZ END

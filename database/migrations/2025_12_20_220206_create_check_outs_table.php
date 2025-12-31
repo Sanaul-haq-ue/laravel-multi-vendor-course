@@ -14,12 +14,19 @@ return new class extends Migration
         Schema::create('check_outs', function (Blueprint $table) {
             $table->id();
 
-            $table->integer('user_id');
-            $table->integer('courseModule_id');
-            $table->integer('price');
-            $table->tinyInteger('payment')->comment('0= BKash','1= Card');
-            $table->tinyInteger('status')->comment('0= Pedning','1= Approved','2= Unapproved');
-            $table->integer('teacher_created_by_id');
+            $table->string('name');
+            $table->string('email');
+            $table->integer('phone');
+            $table->integer('total_amount');
+            $table->string('address');
+            $table->tinyInteger('status');
+            $table->string('transaction_id')->unique();
+            $table->tinyInteger('currency');
+
+            $table->tinyInteger('user_id');
+            $table->tinyInteger('courseModule_id');
+            // $table->tinyInteger('payment')->comment('0= BKash','1= Card');
+            $table->tinyInteger('teacher_created_by_id');
             
             $table->foreign('teacher_created_by_id')
                   ->references('id')
